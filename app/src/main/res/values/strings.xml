@@ -2,4 +2,6 @@
     <string name="app_name">Paper Java</string>
     <string name="add_data_here">Add data here</string>
     <string name="press_to_add_data">Press to Add Data</string>
+    <string name="enter_age">Enter age</string>
+    <string name="enter_name">Enter name</string>
 </resources>

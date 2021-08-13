@@ -23,11 +23,24 @@
             android:gravity="center_horizontal" />
 
         <EditText
-            android:id="@+id/addedText"
+            android:id="@+id/addedName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_data_here"
+            android:hint="@string/enter_name"
             android:textSize="20sp"
+            android:inputType="textPersonName"
+            android:layout_margin="10dp"
+            android:padding="5dp"/>
+
+
+        <EditText
+            android:id="@+id/addedAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_age"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:inputType="number"
             android:layout_margin="10dp"
             android:padding="5dp"/>
 

@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import com.project.paperjava.databinding.ActivityMainBinding;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    String data = "";
     String storageKey = "UsersList";
+    Users[] data = {new Users("jhkj", 6), new Users("kjh",8)};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,37 +24,55 @@ public class MainActivity extends AppCompatActivity {
         //Initialization of Paper DB
         Paper.init(this);
 
-        initDb();
-
-    }
-
-    private void initDb() {
-        Paper.book().write(storageKey, data);
     }
 
 
-    private void addData(String info) {
-        data = data.concat(info);
-        saveData(data);
-        readData();
+    private void saveData(List<Users> userData) {
+        Paper.book().write(storageKey, userData);
     }
 
-    private void readData() {
-        //Paper DB method to read data
-        String info = Paper.book().read(storageKey);
-        binding.dataOutput.setText(info);
+    private void readData(String key){
+        List<Users> userData = Paper.book().read(key);
+
+        for(Users user: userData){
+            binding.dataOutput.setText(user.getName() + " : " + user.getAge() + "\n");
+        }
+
     }
 
-    private void saveData(String info) {
-        //Paper DB method to save data
-        Paper.book().write(storageKey, info);
-    }
 
     public void dataAddition(View view) {
-        String newData = binding.addedText.getText().toString();
-        if(Paper.book().contains(storageKey)){
-            addData("\n" + newData);
-        }
-        binding.addedText.setText("");
+        List<Users> info = new ArrayList<>(Arrays.asList(data));
+        info.add(new Users(binding.addedName.getText().toString(), Integer.parseInt(binding.addedAge.getText().toString())));
+        saveData(info);
+        readData(storageKey);
     }
+
+}
+
+class Users {
+    private String name;
+    private int age;
+
+    public Users(String name, int age){
+        this.name = name;
+        this.age = age;
+    }
+//
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setName(String userName){
+        this.name = userName;
+    }
+
+    public void setAge(int userAge){
+        this.age = userAge;
+    }
+
 }
